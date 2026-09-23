@@ -68,7 +68,7 @@
             cursor: url('cursor_default.png') 0 0, auto;
         }
 
-        /* 🌟 1080x1920 세로 모바일 고정 비율 래퍼 */
+        /* 1080x1920 세로 모바일 고정 비율 래퍼 */
         #game-wrapper {
             position: relative;
             width: 1080px;
@@ -108,18 +108,21 @@
             cursor: text !important;
         }
 
-        /* 🌟 상단바 (높이 110px 및 정중앙 정렬) */
+
+        /* =========================================================
+           📌 [배치 및 간격 조절 구역 1] 상단바 높이
+           ========================================================= */
         #top-bar {
             position: absolute;
             top: 0;
             left: 0;
             width: 1080px;
-            height: 110px;
+            height: 110px;       /* 👈 상단바 높이 */
             background-image: url('topbar_bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             display: flex;
-            justify-content: center; /* 🌟 타이틀 중앙 정렬 */
+            justify-content: center;
             align-items: center;
             padding: 0 45px;
             z-index: 100;
@@ -161,9 +164,10 @@
             align-items: center;
         }
 
+        /* 대문화면 버튼 위치 */
         .main-menu-box {
             position: absolute;
-            bottom: 320px;
+            bottom: 400px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -288,14 +292,17 @@
             touch-action: none;
         }
 
-        /* 상단 스코어 보드 (중앙 배치) */
+
+        /* =========================================================
+           📌 [배치 및 크기 조절 구역 2] 스코어 보드 박스 크기 & Y 위치 (간격)
+           ========================================================= */
         #score-board-box {
             position: absolute;
-            top: 145px;
+            top: 210px;          /* 👈 [간격] 상단바와의 여백 조절 (스코어보드 Y 위치) */
             left: 50%;
             transform: translateX(-50%);
-            width: 720px;
-            height: 220px;
+            width: 760px;        /* 👈 스코어 박스 너비 */
+            height: 200px;       /* 👈 스코어 박스 높이 (두께 조절) */
             background-image: url('score_bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -308,18 +315,22 @@
         }
 
         #score-label-img {
-            height: 28px;
+            height: 22px;
             object-fit: contain;
-            margin-top: 6px;
-            margin-bottom: 10px;
+            margin-top: 2px;
+            margin-bottom: 4px;
             user-select: none;
             -webkit-user-drag: none;
         }
 
+
+        /* =========================================================
+           📌 [배치 및 크기 조절 구역 3] 스코어 숫자 크기
+           ========================================================= */
         #score-display {
             font-family: 'DSEG7-Classic', monospace;
             font-weight: normal;
-            font-size: 80px;
+            font-size: 110px;     /* 👈 스코어 박스 내부 점수 숫자 크기 */
             color: #111111;
             letter-spacing: 6px;
             text-indent: 6px;
@@ -328,12 +339,15 @@
             line-height: 1;
         }
 
-        /* 하단 게임 플레이 영역 */
+
+        /* =========================================================
+           📌 [배치 및 간격 조절 구역 4] 게임 영역 크기 & Y 위치 (간격)
+           ========================================================= */
         #game-play-area {
             position: absolute;
-            width: 1000px;
-            height: 1420px;
-            top: 420px;
+            width: 1048px;       /* 👈 게임 영역 너비 */
+            height: 1164px;      /* 👈 게임 영역 높이 */
+            top: 530px;          /* 👈 [간격] 스코어 박스와의 여백 및 하단 간격 조절 (게임영역 Y 위치) */
             left: 50%;
             transform: translateX(-50%);
             background-image: url('game_bg.png');
@@ -342,11 +356,14 @@
             overflow: hidden;
         }
 
-        /* 문 레이어 */
+
+        /* =========================================================
+           🌟 [직접 수정 구역 A] 문 위치 및 크기
+           ========================================================= */
         #door-layer {
             position: absolute;
-            top: 0;
-            left: 50px;
+            top: 0;              /* 👈 문 Y 위치 */
+            left: 46px;          /* 👈 문 X 위치 */
             pointer-events: none;
             background-size: contain;
             background-repeat: no-repeat;
@@ -355,17 +372,20 @@
 
         .door-closed { 
             background-image: url('door_closed.png'); 
-            width: 350px;
-            height: 620px;
+            width: 422px;        /* 👈 [닫힌 문] 너비 */
+            height: 607px;       /* 👈 [닫힌 문] 높이 */
         }
 
         .door-open { 
             background-image: url('door_open.png'); 
-            width: 200px;
-            height: 720px;
+            width: 217px;        /* 👈 [열린 문] 너비 */
+            height: 713px;       /* 👈 [열린 문] 높이 */
         }
 
-        /* 차주한 레이어 */
+
+        /* =========================================================
+           🌟 [직접 수정 구역 B] 차주한 크기 및 위치
+           ========================================================= */
         #juhan-character {
             position: absolute;
             pointer-events: none;
@@ -377,28 +397,31 @@
         .juhan-open { 
             display: block !important;
             background-image: url('juhan_open.png'); 
-            left: 230px;
-            top: 60px;
-            width: 220px;
-            height: 440px;
+            left: 260px;         /* 👈 [문 열고 볼 때] X 위치 */
+            top: 60px;           /* 👈 [문 열고 볼 때] Y 위치 */
+            width: 240px;        /* 👈 [문 열고 볼 때] 너비 */
+            height: 437px;       /* 👈 [문 열고 볼 때] 높이 */
         }
 
         .juhan-scold { 
             display: block !important;
             background-image: url('juhan_scold.png'); 
-            left: 230px;
-            top: 10px;
-            width: 520px;
-            height: 680px;
+            left: 173px;         /* 👈 [혼낼 때] X 위치 */
+            top: 127px;           /* 👈 [혼낼 때] Y 위치 */
+            width: 525px;        /* 👈 [혼낼 때] 너비 */
+            height: 620px;       /* 👈 [혼낼 때] 높이 */
         }
 
-        /* 강민재 레이어 */
+
+        /* =========================================================
+           🌟 [직접 수정 구역 C] 강민재 크기 및 위치
+           ========================================================= */
         #minjae-character {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 780px;
-            height: 850px;
+            bottom: 0;           /* 👈 강민재 Y 위치 (하단 기준) */
+            right: 0;            /* 👈 강민재 X 위치 (우측 기준) */
+            width: 422px;        /* 👈 강민재 너비 */
+            height: 850px;       /* 👈 강민재 높이 */
             pointer-events: none;
             background-size: contain;
             background-repeat: no-repeat;
@@ -410,13 +433,16 @@
         .minjae-eat2 { background-image: url('minjae_eat2.png'); }
         .minjae-shock { background-image: url('minjae_shock.png'); }
 
-        /* 탁자 위 과자 */
+
+        /* =========================================================
+           🌟 [직접 수정 구역 D] 탁자 위 과자 위치 및 크기
+           ========================================================= */
         #snack-on-table {
             position: absolute;
-            top: 860px;
-            left: 480px;
-            width: 330px;
-            height: 230px;
+            top: 847px;          /* 👈 과자 Y 위치 */
+            left: 411px;         /* 👈 과자 X 위치 */
+            width: 324px;        /* 👈 과자 너비 */
+            height: 220px;       /* 👈 과자 높이 */
             pointer-events: none;
             background-image: url('snack.png');
             background-size: contain;
@@ -424,6 +450,7 @@
             background-position: bottom right;
             display: none;
         }
+
 
         /* =========================================
            3. 모바일 게임 오버 화면
@@ -529,7 +556,7 @@
 <body>
 
     <div id="game-wrapper">
-        <!-- 🌟 상단바 (높이 110px 및 트위터 로고 제거 후 가운데 정렬) -->
+        <!-- 상단바 -->
         <div id="top-bar">
             <a href="https://x.com/1201x0617_SG" target="_blank" rel="noopener noreferrer" class="topbar-link">
                 <img src="topbar_title.png" id="topbar-title-img" alt="정도 웰컴 키트 :: 2027 강차 시즌그리팅">
@@ -626,7 +653,7 @@
         window.addEventListener('resize', resizeGame);
         resizeGame();
 
-        /* 고속 비동기 디코딩 적용 (topbar_x.png 제거) */
+        /* 고속 비동기 디코딩 적용 */
         const preloadImageSources = [
             'preview.png',
             'topbar_bg.png',
@@ -875,10 +902,9 @@
             }, 1000);
         }
 
-        /* 트위터 공유 (자동 띄어쓰기 및 ?v=1 제거) */
+        /* 트위터 공유 (PC 및 모바일 URL 함께 출력) */
         document.getElementById('btn-share').addEventListener('click', () => {
-            const currentUrl = window.location.origin + window.location.pathname;
-            const shareText = `#방금바삭소리누굽니까_저는아니에요\n#바삭강민재_빠직차주한\n${currentUrl}`;
+            const shareText = `#방금바삭소리누굽니까_저는아니에요\n#바삭강민재_빠직차주한\n🖥PC: https://sneakingpuppygame.vercel.app/\n📱Mobile: https://msneakingpuppygame.vercel.app/`;
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
             window.open(twitterUrl, '_blank');
         });
