@@ -4,33 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>과자 몰래먹기 :: 2027 강차 시즌그리팅</title>
-    
-    <!-- Open Graph (카카오톡, 페이스북, 디스코드 등) -->
+
     <meta property="og:type" content="website">
     <meta property="og:title" content="과자 몰래먹기 :: 2027 강차 시즌그리팅">
     <meta property="og:description" content="변호사님 모르게 과자를 먹어보자!">
     <meta property="og:image" content="https://sneakingpuppygame.vercel.app/preview.png">
 
-    <!-- Twitter Card (트위터 전용) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="과자 몰래먹기 :: 2027 강차 시즌그리팅">
     <meta name="twitter:description" content="변호사님 모르게 과자를 먹어보자!">
     <meta name="twitter:image" content="https://sneakingpuppygame.vercel.app/preview.png">
 
-    <!-- 브라우저 탭 아이콘 (파비콘) -->
     <link rel="icon" type="image/png" href="/favicon.png?v=1">
     <link rel="apple-touch-icon" href="/favicon.png?v=1">
 
-    <!-- 폰트 로드: Noto Serif KR (본명조), Cinzel (영문 타이틀) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- DSEG 공식 CDN 스타일시트 로드 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css">
 
     <style>
-        /* DSEG7 슬림한 Regular 폰트 정의 */
         @font-face {
             font-family: 'DSEG7-Classic';
             src: url('https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2') format('woff2'),
@@ -44,12 +38,14 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
-        /* 모든 이미지의 기본 인라인 여백 및 틈새 제거 */
         img {
             display: block;
             vertical-align: top;
+            outline: 1px solid transparent;
         }
 
         body, html {
@@ -68,7 +64,6 @@
             cursor: url('cursor_default.png') 0 0, auto;
         }
 
-        /* 1080x1920 세로 모바일 고정 비율 래퍼 */
         #game-wrapper {
             position: relative;
             width: 1080px;
@@ -79,9 +74,11 @@
             transform-origin: center center;
             box-shadow: 0 15px 50px rgba(0,0,0,0.7);
             cursor: url('cursor_default.png') 0 0, auto;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            will-change: transform;
         }
 
-        /* 클릭 가능한 요소 손가락 커서 */
         button, 
         a, 
         .close-icon, 
@@ -92,7 +89,6 @@
             cursor: url('cursor_pointer.png') 4 0, pointer !important;
         }
 
-        /* 이미지 버튼 공통 효과 (클릭 시 쫀득한 눌림 효과) */
         .img-btn {
             user-select: none;
             -webkit-user-drag: none;
@@ -108,24 +104,22 @@
             cursor: text !important;
         }
 
-
-        /* =========================================================
-           📌 [배치 및 간격 조절 구역 1] 상단바 높이
-           ========================================================= */
         #top-bar {
             position: absolute;
             top: 0;
             left: 0;
             width: 1080px;
-            height: 110px;       /* 👈 상단바 높이 */
+            height: 110px;
             background-image: url('topbar_bg.png');
-            background-size: 100% 100%;
+            background-size: 100.5% 100.5%;
+            background-position: center;
             background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 0 45px;
             z-index: 100;
+            outline: 1px solid transparent;
         }
 
         .topbar-link {
@@ -142,7 +136,6 @@
             -webkit-user-drag: none;
         }
 
-        /* 화면 레이아웃 (1080x1920) */
         .screen {
             position: absolute;
             top: 0;
@@ -152,19 +145,15 @@
             display: none;
         }
 
-        /* =========================================
-           1. 모바일 대문 화면 (1080x1920)
-           ========================================= */
         #screen-start {
             display: flex;
             background-image: url('main_bg.png');
-            background-size: 100% 100%;
+            background-size: 100.5% 100.5%;
             background-position: center;
             justify-content: center;
             align-items: center;
         }
 
-        /* 대문화면 버튼 위치 */
         .main-menu-box {
             position: absolute;
             bottom: 400px;
@@ -181,9 +170,6 @@
             height: auto;
         }
 
-        /* =========================================
-           팝업 공통
-           ========================================= */
         .popup-overlay {
             display: none;
             position: absolute;
@@ -198,7 +184,6 @@
             align-items: center;
         }
 
-        /* 1-1. 모바일 게임 설명 팝업 */
         #popup-desc-container {
             position: relative;
             display: inline-flex;
@@ -223,19 +208,20 @@
             width: 440px;
         }
 
-        /* 1-2. 모바일 아이디 입력 팝업 박스 */
         #popup-id-card {
             position: relative;
             width: 900px;
             height: auto;
             background-image: url('id_popup_box.png');
-            background-size: 100% 100%;
+            background-size: 100.5% 100.5%;
+            background-position: center;
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 75px 50px 60px 50px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+            outline: 1px solid transparent;
         }
 
         #id-title-img {
@@ -283,28 +269,22 @@
             height: auto;
         }
 
-        /* =========================================
-           2. 모바일 게임 화면
-           ========================================= */
         #screen-game {
             background-color: #dcd0be;
             position: relative;
             touch-action: none;
         }
 
-
-        /* =========================================================
-           📌 [배치 및 크기 조절 구역 2] 스코어 보드 박스 크기 & Y 위치 (간격)
-           ========================================================= */
         #score-board-box {
             position: absolute;
-            top: 210px;          /* 👈 [간격] 상단바와의 여백 조절 (스코어보드 Y 위치) */
+            top: 210px;
             left: 50%;
             transform: translateX(-50%);
-            width: 760px;        /* 👈 스코어 박스 너비 */
-            height: 200px;       /* 👈 스코어 박스 높이 (두께 조절) */
+            width: 760px;
+            height: 200px;
             background-image: url('score_bg.png');
-            background-size: 100% 100%;
+            background-size: 100.5% 100.5%;
+            background-position: center;
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
@@ -312,6 +292,7 @@
             align-items: center;
             z-index: 10;
             filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+            outline: 1px solid transparent;
         }
 
         #score-label-img {
@@ -323,14 +304,10 @@
             -webkit-user-drag: none;
         }
 
-
-        /* =========================================================
-           📌 [배치 및 크기 조절 구역 3] 스코어 숫자 크기
-           ========================================================= */
         #score-display {
             font-family: 'DSEG7-Classic', monospace;
             font-weight: normal;
-            font-size: 110px;     /* 👈 스코어 박스 내부 점수 숫자 크기 */
+            font-size: 110px;
             color: #111111;
             letter-spacing: 6px;
             text-indent: 6px;
@@ -339,31 +316,25 @@
             line-height: 1;
         }
 
-
-        /* =========================================================
-           📌 [배치 및 간격 조절 구역 4] 게임 영역 크기 & Y 위치 (간격)
-           ========================================================= */
         #game-play-area {
             position: absolute;
-            width: 1048px;       /* 👈 게임 영역 너비 */
-            height: 1164px;      /* 👈 게임 영역 높이 */
-            top: 530px;          /* 👈 [간격] 스코어 박스와의 여백 및 하단 간격 조절 (게임영역 Y 위치) */
+            width: 1048px;
+            height: 1164px;
+            top: 530px;
             left: 50%;
             transform: translateX(-50%);
             background-image: url('game_bg.png');
-            background-size: 100% 100%;
+            background-size: 100.5% 100.5%;
+            background-position: center;
             background-repeat: no-repeat;
             overflow: hidden;
+            outline: 1px solid transparent;
         }
 
-
-        /* =========================================================
-           🌟 [직접 수정 구역 A] 문 위치 및 크기
-           ========================================================= */
         #door-layer {
             position: absolute;
-            top: 0;              /* 👈 문 Y 위치 */
-            left: 46px;          /* 👈 문 X 위치 */
+            top: 0;
+            left: 46px;
             pointer-events: none;
             background-size: contain;
             background-repeat: no-repeat;
@@ -372,20 +343,16 @@
 
         .door-closed { 
             background-image: url('door_closed.png'); 
-            width: 422px;        /* 👈 [닫힌 문] 너비 */
-            height: 607px;       /* 👈 [닫힌 문] 높이 */
+            width: 422px;
+            height: 607px;
         }
 
         .door-open { 
             background-image: url('door_open.png'); 
-            width: 217px;        /* 👈 [열린 문] 너비 */
-            height: 713px;       /* 👈 [열린 문] 높이 */
+            width: 217px;
+            height: 713px;
         }
 
-
-        /* =========================================================
-           🌟 [직접 수정 구역 B] 차주한 크기 및 위치
-           ========================================================= */
         #juhan-character {
             position: absolute;
             pointer-events: none;
@@ -397,31 +364,27 @@
         .juhan-open { 
             display: block !important;
             background-image: url('juhan_open.png'); 
-            left: 260px;         /* 👈 [문 열고 볼 때] X 위치 */
-            top: 60px;           /* 👈 [문 열고 볼 때] Y 위치 */
-            width: 240px;        /* 👈 [문 열고 볼 때] 너비 */
-            height: 437px;       /* 👈 [문 열고 볼 때] 높이 */
+            left: 260px;
+            top: 60px;
+            width: 240px;
+            height: 437px;
         }
 
         .juhan-scold { 
             display: block !important;
             background-image: url('juhan_scold.png'); 
-            left: 173px;         /* 👈 [혼낼 때] X 위치 */
-            top: 127px;           /* 👈 [혼낼 때] Y 위치 */
-            width: 525px;        /* 👈 [혼낼 때] 너비 */
-            height: 620px;       /* 👈 [혼낼 때] 높이 */
+            left: 173px;
+            top: 127px;
+            width: 525px;
+            height: 620px;
         }
 
-
-        /* =========================================================
-           🌟 [직접 수정 구역 C] 강민재 크기 및 위치
-           ========================================================= */
         #minjae-character {
             position: absolute;
-            bottom: 0;           /* 👈 강민재 Y 위치 (하단 기준) */
-            right: 0;            /* 👈 강민재 X 위치 (우측 기준) */
-            width: 422px;        /* 👈 강민재 너비 */
-            height: 850px;       /* 👈 강민재 높이 */
+            bottom: 0;
+            right: 0;
+            width: 422px;
+            height: 850px;
             pointer-events: none;
             background-size: contain;
             background-repeat: no-repeat;
@@ -433,16 +396,12 @@
         .minjae-eat2 { background-image: url('minjae_eat2.png'); }
         .minjae-shock { background-image: url('minjae_shock.png'); }
 
-
-        /* =========================================================
-           🌟 [직접 수정 구역 D] 탁자 위 과자 위치 및 크기
-           ========================================================= */
         #snack-on-table {
             position: absolute;
-            top: 847px;          /* 👈 과자 Y 위치 */
-            left: 411px;         /* 👈 과자 X 위치 */
-            width: 324px;        /* 👈 과자 너비 */
-            height: 220px;       /* 👈 과자 높이 */
+            top: 847px;
+            left: 411px;
+            width: 324px;
+            height: 220px;
             pointer-events: none;
             background-image: url('snack.png');
             background-size: contain;
@@ -451,10 +410,6 @@
             display: none;
         }
 
-
-        /* =========================================
-           3. 모바일 게임 오버 화면
-           ========================================= */
         #screen-gameover {
             position: absolute;
             top: 0;
@@ -526,7 +481,6 @@
             text-indent: 10px;
         }
 
-        /* 모바일 전용 버튼 세로 정렬 구조 */
         .gameover-btn-group {
             display: flex;
             flex-direction: column;
@@ -539,7 +493,6 @@
             height: auto;
         }
 
-        /* 프리렌더링 히든 박스 */
         #preload-cache-box {
             position: absolute;
             top: 0;
@@ -556,14 +509,12 @@
 <body>
 
     <div id="game-wrapper">
-        <!-- 상단바 -->
         <div id="top-bar">
             <a href="https://x.com/1201x0617_SG" target="_blank" rel="noopener noreferrer" class="topbar-link">
                 <img src="topbar_title.png" id="topbar-title-img" alt="정도 웰컴 키트 :: 2027 강차 시즌그리팅">
             </a>
         </div>
 
-        <!-- 1. 대문 화면 -->
         <div id="screen-start" class="screen">
             <div class="main-menu-box">
                 <img src="btn_start.png" id="btn-open-start-popup" class="img-btn" alt="게임 시작">
@@ -571,7 +522,6 @@
             </div>
         </div>
 
-        <!-- 1-1. 게임 설명 팝업 -->
         <div id="popup-desc" class="popup-overlay">
             <div id="popup-desc-container">
                 <img src="desc_popup.png" id="desc-popup-img" alt="게임 설명">
@@ -579,7 +529,6 @@
             </div>
         </div>
 
-        <!-- 1-2. 아이디 입력 팝업 -->
         <div id="popup-id" class="popup-overlay">
             <div class="popup-card" id="popup-id-card">
                 <img src="id_title.png" id="id-title-img" alt="아이디 입력">
@@ -594,15 +543,12 @@
             </div>
         </div>
 
-        <!-- 2. 게임 플레이 화면 -->
         <div id="screen-game" class="screen">
-            <!-- 스코어 보드 (상단 중앙배치) -->
             <div id="score-board-box">
                 <img src="score_label.png" id="score-label-img" alt="SCORE">
                 <div id="score-display">0</div>
             </div>
 
-            <!-- 하단 게임 플레이 영역 -->
             <div id="game-play-area">
                 <div id="door-layer" class="door-closed"></div>
                 <div id="juhan-character"></div>
@@ -612,7 +558,6 @@
             </div>
         </div>
 
-        <!-- 3. 게임 오버 화면 -->
         <div id="screen-gameover">
             <div id="gameover-content">
                 <img src="gameover_title.png" id="gameover-title-img" alt="GAME OVER">
@@ -630,7 +575,6 @@
             </div>
         </div>
 
-        <!-- 브라우저 메모리 프리렌더링 히든 박스 -->
         <div id="preload-cache-box">
             <div class="door-open"></div>
             <div class="juhan-open"></div>
@@ -644,7 +588,6 @@
     </div>
 
     <script>
-        /* 1080x1920 세로 반응형 스케일 함수 */
         function resizeGame() {
             const wrapper = document.getElementById('game-wrapper');
             const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
@@ -653,7 +596,6 @@
         window.addEventListener('resize', resizeGame);
         resizeGame();
 
-        /* 고속 비동기 디코딩 적용 */
         const preloadImageSources = [
             'preview.png',
             'topbar_bg.png',
@@ -726,7 +668,6 @@
         let doorState = 'closed';
         let eatFrame = 1;
 
-        // 팝업 제어
         document.getElementById('btn-open-desc-popup').addEventListener('click', () => {
             popupDesc.style.display = 'flex';
         });
@@ -787,7 +728,6 @@
             if (e.key === 'Enter') document.getElementById('btn-confirm-id').click();
         });
 
-        /* 과자 먹기 모션 */
         function startEating(e) {
             if (!isGameRunning || isEating) return;
             if (e) e.preventDefault();
@@ -824,7 +764,6 @@
         window.addEventListener('pointerup', stopEating);
         window.addEventListener('pointercancel', stopEating);
 
-        /* 게임 루프 */
         function startGame() {
             isGameRunning = true;
             isEating = false;
@@ -879,7 +818,6 @@
             }, waitTime);
         }
 
-        /* 검거 및 게임오버 순차 전환 (0.4초 후 페이드인) */
         function triggerCaughtGameOver() {
             isGameRunning = false;
             clearInterval(scoreInterval);
@@ -902,7 +840,6 @@
             }, 1000);
         }
 
-        /* 트위터 공유 (PC 및 모바일 URL 함께 출력) */
         document.getElementById('btn-share').addEventListener('click', () => {
             const shareText = `#방금바삭소리누굽니까_저는아니에요\n#바삭강민재_빠직차주한\n🖥PC: https://sneakingpuppygame.vercel.app/\n📱Mobile: https://msneakingpuppygame.vercel.app/`;
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
