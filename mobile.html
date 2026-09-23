@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>과자 몰래먹기 :: 2027 강차 시즌그리팅</title>
+    
+    <!-- Open Graph (카카오톡, 페이스북, 디스코드 등) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="과자 몰래먹기 :: 2027 강차 시즌그리팅">
+    <meta property="og:description" content="변호사님 모르게 과자를 먹어보자!">
+    <meta property="og:image" content="https://sneakingpuppygame.vercel.app/preview.png">
+
+    <!-- Twitter Card (트위터 전용) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="과자 몰래먹기 :: 2027 강차 시즌그리팅">
+    <meta name="twitter:description" content="변호사님 모르게 과자를 먹어보자!">
+    <meta name="twitter:image" content="https://sneakingpuppygame.vercel.app/preview.png">
+
+    <!-- 브라우저 탭 아이콘 (파비콘) -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=1">
+    <link rel="apple-touch-icon" href="/favicon.png?v=1">
+
+    <!-- 폰트 로드: Noto Serif KR (본명조), Cinzel (영문 타이틀) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- DSEG 공식 CDN 스타일시트 로드 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css">
+
+    <style>
+        /* DSEG7 슬림한 Regular 폰트 정의 */
+        @font-face {
+            font-family: 'DSEG7-Classic';
+            src: url('https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2') format('woff2'),
+                 url('https://unpkg.com/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 모든 이미지의 기본 인라인 여백 및 틈새 제거 */
+        img {
+            display: block;
+            vertical-align: top;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            font-family: 'Noto Serif KR', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: url('cursor_default.png') 0 0, auto;
+        }
+
+        /* 🌟 1080x1920 세로 모바일 고정 비율 래퍼 */
+        #game-wrapper {
+            position: relative;
+            width: 1080px;
+            height: 1920px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background-color: #dcd0be;
+            transform-origin: center center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+            cursor: url('cursor_default.png') 0 0, auto;
+        }
+
+        /* 클릭 가능한 요소 손가락 커서 */
+        button, 
+        a, 
+        .close-icon, 
+        .img-btn,
+        .btn-main-dark,
+        .topbar-link,
+        #screen-game {
+            cursor: url('cursor_pointer.png') 4 0, pointer !important;
+        }
+
+        /* 이미지 버튼 공통 효과 (클릭 시 쫀득한 눌림 효과) */
+        .img-btn {
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: transform 0.08s ease;
+            filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .img-btn:active {
+            transform: scale(0.96);
+        }
+
+        #input-id {
+            cursor: text !important;
+        }
+
+        /* 🌟 상단바 (높이 110px 및 정중앙 정렬) */
+        #top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1080px;
+            height: 110px;
+            background-image: url('topbar_bg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center; /* 🌟 타이틀 중앙 정렬 */
+            align-items: center;
+            padding: 0 45px;
+            z-index: 100;
+        }
+
+        .topbar-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        #topbar-title-img {
+            height: 34px;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* 화면 레이아웃 (1080x1920) */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1080px;
+            height: 1920px;
+            display: none;
+        }
+
+        /* =========================================
+           1. 모바일 대문 화면 (1080x1920)
+           ========================================= */
+        #screen-start {
+            display: flex;
+            background-image: url('main_bg.png');
+            background-size: 100% 100%;
+            background-position: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-menu-box {
+            position: absolute;
+            bottom: 320px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-menu-box .img-btn {
+            width: 480px;
+            height: auto;
+        }
+
+        /* =========================================
+           팝업 공통
+           ========================================= */
+        .popup-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1080px;
+            height: 1920px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 150;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 1-1. 모바일 게임 설명 팝업 */
+        #popup-desc-container {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        #desc-popup-img {
+            max-width: 920px;
+            height: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        }
+
+        #btn-close-desc {
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 440px;
+        }
+
+        /* 1-2. 모바일 아이디 입력 팝업 박스 */
+        #popup-id-card {
+            position: relative;
+            width: 900px;
+            height: auto;
+            background-image: url('id_popup_box.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 75px 50px 60px 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        }
+
+        #id-title-img {
+            max-width: 380px;
+            height: auto;
+            margin-bottom: 25px;
+        }
+
+        #id-instruction-img {
+            max-width: 740px;
+            height: auto;
+            margin-bottom: 35px;
+        }
+
+        .input-box-wrapper {
+            width: 780px;
+            border: 3px solid #b59b71;
+            border-radius: 0px;
+            padding: 18px 30px;
+            margin-bottom: 15px;
+            background: #ffffff;
+        }
+
+        #input-id {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 42px;
+            text-align: center;
+            color: #242220;
+            background: transparent;
+        }
+
+        #id-warning-img {
+            height: 34px;
+            object-fit: contain;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            visibility: hidden;
+        }
+
+        #btn-confirm-id {
+            width: 480px;
+            height: auto;
+        }
+
+        /* =========================================
+           2. 모바일 게임 화면
+           ========================================= */
+        #screen-game {
+            background-color: #dcd0be;
+            position: relative;
+            touch-action: none;
+        }
+
+        /* 상단 스코어 보드 (중앙 배치) */
+        #score-board-box {
+            position: absolute;
+            top: 145px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 720px;
+            height: 220px;
+            background-image: url('score_bg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+        }
+
+        #score-label-img {
+            height: 28px;
+            object-fit: contain;
+            margin-top: 6px;
+            margin-bottom: 10px;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        #score-display {
+            font-family: 'DSEG7-Classic', monospace;
+            font-weight: normal;
+            font-size: 80px;
+            color: #111111;
+            letter-spacing: 6px;
+            text-indent: 6px;
+            text-align: center;
+            width: 100%;
+            line-height: 1;
+        }
+
+        /* 하단 게임 플레이 영역 */
+        #game-play-area {
+            position: absolute;
+            width: 1000px;
+            height: 1420px;
+            top: 420px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-image: url('game_bg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        /* 문 레이어 */
+        #door-layer {
+            position: absolute;
+            top: 0;
+            left: 50px;
+            pointer-events: none;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top left;
+        }
+
+        .door-closed { 
+            background-image: url('door_closed.png'); 
+            width: 350px;
+            height: 620px;
+        }
+
+        .door-open { 
+            background-image: url('door_open.png'); 
+            width: 200px;
+            height: 720px;
+        }
+
+        /* 차주한 레이어 */
+        #juhan-character {
+            position: absolute;
+            pointer-events: none;
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: none;
+        }
+
+        .juhan-open { 
+            display: block !important;
+            background-image: url('juhan_open.png'); 
+            left: 230px;
+            top: 60px;
+            width: 220px;
+            height: 440px;
+        }
+
+        .juhan-scold { 
+            display: block !important;
+            background-image: url('juhan_scold.png'); 
+            left: 230px;
+            top: 10px;
+            width: 520px;
+            height: 680px;
+        }
+
+        /* 강민재 레이어 */
+        #minjae-character {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 780px;
+            height: 850px;
+            pointer-events: none;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom right;
+        }
+
+        .minjae-idle { background-image: url('minjae_idle.png'); }
+        .minjae-eat1 { background-image: url('minjae_eat1.png'); }
+        .minjae-eat2 { background-image: url('minjae_eat2.png'); }
+        .minjae-shock { background-image: url('minjae_shock.png'); }
+
+        /* 탁자 위 과자 */
+        #snack-on-table {
+            position: absolute;
+            top: 860px;
+            left: 480px;
+            width: 330px;
+            height: 230px;
+            pointer-events: none;
+            background-image: url('snack.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom right;
+            display: none;
+        }
+
+        /* =========================================
+           3. 모바일 게임 오버 화면
+           ========================================= */
+        #screen-gameover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1080px;
+            height: 1920px;
+            background-image: url('juhan_closeup.png');
+            background-size: cover;
+            background-position: center;
+            display: none;
+            z-index: 300;
+        }
+
+        #gameover-content {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.72);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        #gameover-content.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #gameover-title-img {
+            max-width: 880px;
+            height: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+            margin-bottom: 70px;
+        }
+
+        #gameover-id {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 50px;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 50px;
+        }
+
+        #gameover-score-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        #gameover-score-label-img {
+            height: 32px;
+            object-fit: contain;
+            margin-bottom: 18px;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        #gameover-score {
+            font-family: 'DSEG7-Classic', monospace;
+            font-weight: normal;
+            font-size: 110px;
+            color: #ffffff;
+            letter-spacing: 10px;
+            text-indent: 10px;
+        }
+
+        /* 모바일 전용 버튼 세로 정렬 구조 */
+        .gameover-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .gameover-btn-group .img-btn {
+            width: 480px;
+            height: auto;
+        }
+
+        /* 프리렌더링 히든 박스 */
+        #preload-cache-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -9999;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-wrapper">
+        <!-- 🌟 상단바 (높이 110px 및 트위터 로고 제거 후 가운데 정렬) -->
+        <div id="top-bar">
+            <a href="https://x.com/1201x0617_SG" target="_blank" rel="noopener noreferrer" class="topbar-link">
+                <img src="topbar_title.png" id="topbar-title-img" alt="정도 웰컴 키트 :: 2027 강차 시즌그리팅">
+            </a>
+        </div>
+
+        <!-- 1. 대문 화면 -->
+        <div id="screen-start" class="screen">
+            <div class="main-menu-box">
+                <img src="btn_start.png" id="btn-open-start-popup" class="img-btn" alt="게임 시작">
+                <img src="btn_desc.png" id="btn-open-desc-popup" class="img-btn" alt="게임 설명">
+            </div>
+        </div>
+
+        <!-- 1-1. 게임 설명 팝업 -->
+        <div id="popup-desc" class="popup-overlay">
+            <div id="popup-desc-container">
+                <img src="desc_popup.png" id="desc-popup-img" alt="게임 설명">
+                <img src="btn_close.png" id="btn-close-desc" class="img-btn" alt="닫기">
+            </div>
+        </div>
+
+        <!-- 1-2. 아이디 입력 팝업 -->
+        <div id="popup-id" class="popup-overlay">
+            <div class="popup-card" id="popup-id-card">
+                <img src="id_title.png" id="id-title-img" alt="아이디 입력">
+                <img src="id_instruction.png" id="id-instruction-img" alt="트위터 아이디 안내 문구">
+
+                <div class="input-box-wrapper">
+                    <input type="text" id="input-id" placeholder="@아이디" autocomplete="off" spellcheck="false">
+                </div>
+
+                <img src="id_warn_empty.png" id="id-warning-img" alt="경고 문구">
+                <img src="btn_start.png" id="btn-confirm-id" class="img-btn" alt="게임 시작">
+            </div>
+        </div>
+
+        <!-- 2. 게임 플레이 화면 -->
+        <div id="screen-game" class="screen">
+            <!-- 스코어 보드 (상단 중앙배치) -->
+            <div id="score-board-box">
+                <img src="score_label.png" id="score-label-img" alt="SCORE">
+                <div id="score-display">0</div>
+            </div>
+
+            <!-- 하단 게임 플레이 영역 -->
+            <div id="game-play-area">
+                <div id="door-layer" class="door-closed"></div>
+                <div id="juhan-character"></div>
+
+                <div id="snack-on-table"></div>
+                <div id="minjae-character" class="minjae-idle"></div>
+            </div>
+        </div>
+
+        <!-- 3. 게임 오버 화면 -->
+        <div id="screen-gameover">
+            <div id="gameover-content">
+                <img src="gameover_title.png" id="gameover-title-img" alt="GAME OVER">
+                <div id="gameover-id">@아이디</div>
+                
+                <div id="gameover-score-wrap">
+                    <img src="gameover_score_label.png" id="gameover-score-label-img" alt="SCORE">
+                    <span id="gameover-score">0</span>
+                </div>
+
+                <div class="gameover-btn-group">
+                    <img src="btn_share.png" id="btn-share" class="img-btn" alt="공유하기">
+                    <img src="btn_restart.png" id="btn-restart" class="img-btn" alt="처음으로">
+                </div>
+            </div>
+        </div>
+
+        <!-- 브라우저 메모리 프리렌더링 히든 박스 -->
+        <div id="preload-cache-box">
+            <div class="door-open"></div>
+            <div class="juhan-open"></div>
+            <div class="juhan-scold"></div>
+            <div class="minjae-eat1"></div>
+            <div class="minjae-eat2"></div>
+            <div class="minjae-shock"></div>
+            <div style="background-image: url('snack.png');"></div>
+            <div style="background-image: url('juhan_closeup.png');"></div>
+        </div>
+    </div>
+
+    <script>
+        /* 1080x1920 세로 반응형 스케일 함수 */
+        function resizeGame() {
+            const wrapper = document.getElementById('game-wrapper');
+            const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+            wrapper.style.transform = `scale(${scale})`;
+        }
+        window.addEventListener('resize', resizeGame);
+        resizeGame();
+
+        /* 고속 비동기 디코딩 적용 (topbar_x.png 제거) */
+        const preloadImageSources = [
+            'preview.png',
+            'topbar_bg.png',
+            'main_bg.png',
+            'btn_start.png',
+            'btn_desc.png',
+            'desc_popup.png',
+            'btn_close.png',
+            'id_popup_box.png',
+            'id_title.png',
+            'id_instruction.png',
+            'id_warn_empty.png',
+            'id_warn_format.png',
+            'game_bg.png',
+            'door_closed.png',
+            'door_open.png',
+            'juhan_open.png',
+            'juhan_scold.png',
+            'juhan_closeup.png',
+            'minjae_idle.png',
+            'minjae_eat1.png',
+            'minjae_eat2.png',
+            'minjae_shock.png',
+            'snack.png',
+            'score_bg.png',
+            'score_label.png',
+            'gameover_title.png',
+            'gameover_score_label.png',
+            'btn_share.png',
+            'btn_restart.png'
+        ];
+
+        preloadImageSources.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+            if (img.decode) {
+                img.decode().catch(() => {});
+            }
+        });
+
+        const screenStart = document.getElementById('screen-start');
+        const screenGame = document.getElementById('screen-game');
+        const screenGameOver = document.getElementById('screen-gameover');
+        const gameoverContent = document.getElementById('gameover-content');
+
+        const popupDesc = document.getElementById('popup-desc');
+        const popupId = document.getElementById('popup-id');
+        const inputId = document.getElementById('input-id');
+        
+        const idWarningImg = document.getElementById('id-warning-img');
+
+        const doorLayer = document.getElementById('door-layer');
+        const juhanChar = document.getElementById('juhan-character');
+        const minjaeChar = document.getElementById('minjae-character');
+        const snackImg = document.getElementById('snack-on-table');
+        const scoreDisplay = document.getElementById('score-display');
+        
+        const gameoverId = document.getElementById('gameover-id');
+        const gameoverScore = document.getElementById('gameover-score');
+
+        let userTwitterId = '';
+        let score = 0;
+        let isGameRunning = false;
+        let isEating = false;
+        
+        let scoreInterval = null;
+        let eatAnimInterval = null;
+        let bossCycleTimeout = null;
+
+        let doorState = 'closed';
+        let eatFrame = 1;
+
+        // 팝업 제어
+        document.getElementById('btn-open-desc-popup').addEventListener('click', () => {
+            popupDesc.style.display = 'flex';
+        });
+        document.getElementById('btn-close-desc').addEventListener('click', () => {
+            popupDesc.style.display = 'none';
+        });
+
+        document.getElementById('btn-open-start-popup').addEventListener('click', () => {
+            popupId.style.display = 'flex';
+            inputId.focus();
+        });
+
+        inputId.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/[^@a-zA-Z0-9_]/g, '');
+            let atCount = 0;
+            val = val.replace(/@/g, () => (++atCount === 1 ? '@' : ''));
+            if (val.length > 20) val = val.slice(0, 20);
+            e.target.value = val;
+            
+            if (val.length > 0) {
+                idWarningImg.style.visibility = 'hidden';
+            }
+        });
+
+        document.getElementById('btn-confirm-id').addEventListener('click', () => {
+            userTwitterId = inputId.value.trim();
+            const rawId = userTwitterId.replace(/^@/, '');
+
+            if (userTwitterId === "") {
+                idWarningImg.src = 'id_warn_empty.png';
+                idWarningImg.style.visibility = 'visible';
+                inputId.focus();
+                return;
+            }
+
+            if (!userTwitterId.startsWith('@')) {
+                idWarningImg.src = 'id_warn_format.png';
+                idWarningImg.style.visibility = 'visible';
+                inputId.focus();
+                return;
+            }
+
+            if (rawId.length < 3) {
+                idWarningImg.src = 'id_warn_empty.png';
+                idWarningImg.style.visibility = 'visible';
+                inputId.focus();
+                return;
+            }
+
+            popupId.style.display = 'none';
+            screenStart.style.display = 'none';
+            screenGame.style.display = 'block';
+
+            startGame();
+        });
+
+        inputId.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('btn-confirm-id').click();
+        });
+
+        /* 과자 먹기 모션 */
+        function startEating(e) {
+            if (!isGameRunning || isEating) return;
+            if (e) e.preventDefault();
+            
+            isEating = true;
+            snackImg.style.display = 'block';
+
+            if (doorState === 'open') {
+                triggerCaughtGameOver();
+                return;
+            }
+
+            eatFrame = 1;
+            minjaeChar.className = 'minjae-eat1';
+
+            eatAnimInterval = setInterval(() => {
+                eatFrame = (eatFrame === 1) ? 2 : 1;
+                minjaeChar.className = (eatFrame === 1) ? 'minjae-eat1' : 'minjae-eat2';
+            }, 160);
+        }
+
+        function stopEating(e) {
+            if (!isGameRunning || !isEating) return;
+            if (e) e.preventDefault();
+
+            isEating = false;
+            snackImg.style.display = 'none';
+            
+            clearInterval(eatAnimInterval);
+            minjaeChar.className = 'minjae-idle';
+        }
+
+        screenGame.addEventListener('pointerdown', startEating);
+        window.addEventListener('pointerup', stopEating);
+        window.addEventListener('pointercancel', stopEating);
+
+        /* 게임 루프 */
+        function startGame() {
+            isGameRunning = true;
+            isEating = false;
+            score = 0;
+            doorState = 'closed';
+            
+            doorLayer.className = 'door-closed';
+            juhanChar.className = '';
+            minjaeChar.className = 'minjae-idle';
+            snackImg.style.display = 'none';
+            
+            scoreDisplay.textContent = '0';
+
+            scoreInterval = setInterval(() => {
+                if (isEating && isGameRunning) {
+                    score += 1;
+                    scoreDisplay.textContent = score;
+                }
+            }, 50);
+
+            scheduleNextBossVisit();
+        }
+
+        function scheduleNextBossVisit() {
+            if (!isGameRunning) return;
+
+            const waitTime = Math.random() * 2300 + 2200;
+
+            bossCycleTimeout = setTimeout(() => {
+                if (!isGameRunning) return;
+
+                doorState = 'open';
+                doorLayer.className = 'door-open';
+                juhanChar.className = 'juhan-open';
+
+                if (isEating) {
+                    triggerCaughtGameOver();
+                    return;
+                }
+
+                const stayDuration = Math.random() * 600 + 1200;
+                bossCycleTimeout = setTimeout(() => {
+                    if (!isGameRunning) return;
+
+                    doorState = 'closed';
+                    doorLayer.className = 'door-closed';
+                    juhanChar.className = ''; 
+
+                    scheduleNextBossVisit();
+                }, stayDuration);
+
+            }, waitTime);
+        }
+
+        /* 검거 및 게임오버 순차 전환 (0.4초 후 페이드인) */
+        function triggerCaughtGameOver() {
+            isGameRunning = false;
+            clearInterval(scoreInterval);
+            clearInterval(eatAnimInterval);
+            clearTimeout(bossCycleTimeout);
+
+            minjaeChar.className = 'minjae-shock';
+            juhanChar.className = 'juhan-scold';
+
+            setTimeout(() => {
+                gameoverId.textContent = userTwitterId;
+                gameoverScore.textContent = score;
+                
+                gameoverContent.classList.remove('show');
+                screenGameOver.style.display = 'block';
+
+                setTimeout(() => {
+                    gameoverContent.classList.add('show');
+                }, 400);
+            }, 1000);
+        }
+
+        /* 트위터 공유 (자동 띄어쓰기 및 ?v=1 제거) */
+        document.getElementById('btn-share').addEventListener('click', () => {
+            const currentUrl = window.location.origin + window.location.pathname;
+            const shareText = `#방금바삭소리누굽니까_저는아니에요\n#바삭강민재_빠직차주한\n${currentUrl}`;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+            window.open(twitterUrl, '_blank');
+        });
+
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
